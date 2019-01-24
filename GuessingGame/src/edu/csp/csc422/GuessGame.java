@@ -18,7 +18,7 @@ public class GuessGame {
     private static final String PROMPT_FIRST =
             "I'm thinking of a number between %d-%d.  What is the number?  ";
     private static final String PROMPT_NEXT = "Nope.  Too %s.  Try again:  ";
-    private static final String CORRECT = "You got it!\n";
+    private static final String CORRECT = "You got it in %d tries!\n";
 
     /**
      * @param args the command line arguments
@@ -31,13 +31,15 @@ public class GuessGame {
         
         try (Scanner in = new Scanner(System.in)) {
             int guess;
+            int tries = 0;
 
             // Prompt for first guess.
             System.out.printf(PROMPT_FIRST, MIN_GUESS, MAX_GUESS);
             
             while (true) {
-                // Get guess.
+                // Get guess and increment count of tries.
                 guess = in.nextInt();
+                tries++;
 
                 // Check guess.
                 if (guess < number) {
@@ -52,7 +54,7 @@ public class GuessGame {
             }
             
             // User guessed correctly.  Congratulate and exit.
-            System.out.printf(CORRECT);
+            System.out.printf(CORRECT, tries);
         }
     }
     
