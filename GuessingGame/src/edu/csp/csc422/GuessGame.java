@@ -1,21 +1,47 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Author:  Dean E. Peterson
+ * License: GPLv3 (see LICENSE file)
+ * For:     Concordia CSC 422 - Software Engineering - Week 2
+ * What:    Guessing Game/git test project
+ * Created: 2019-01-23
  */
 package edu.csp.csc422;
 
+import java.util.Scanner;
+
 /**
- *
- * @author Dean E. Peterson
+ * Guessing game class.
  */
 public class GuessGame {
+    private static final int MIN_GUESS = 0;
+    private static final int MAX_GUESS = 20;
+    private static final String PROMPT =
+            "I'm thinking of a number between %d-%d.  What is the number?  ";
+    private static final String CORRECT = "You got it!\n";
+    private static final String WRONG = "Nope.  The number is %d.\n";
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Generate random number to guess.
+        // Range is plus 1 to include both endpoints.
+        int range = MAX_GUESS - MIN_GUESS + 1;
+        int number = MIN_GUESS + (int)(Math.random() * range);
+        
+        try (Scanner in = new Scanner(System.in)) {
+            // Get guess.
+            System.out.printf(PROMPT, MIN_GUESS, MAX_GUESS);
+            int guess = in.nextInt();
+            
+            // Check guess.
+            if (guess == number) {
+                System.out.printf(CORRECT);
+            }
+            else {
+                System.out.printf(WRONG, number);
+            }
+        }
     }
     
 }
