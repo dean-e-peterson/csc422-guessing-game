@@ -14,11 +14,11 @@ import java.util.Scanner;
  */
 public class GuessGame {
     private static final int MIN_GUESS = 0;
-    private static final int MAX_GUESS = 20;
-    private static final String PROMPT =
+    private static final int MAX_GUESS = 100;
+    private static final String PROMPT_FIRST =
             "I'm thinking of a number between %d-%d.  What is the number?  ";
+    private static final String PROMPT_NEXT = "Nope.  Try again:  ";
     private static final String CORRECT = "You got it!\n";
-    private static final String WRONG = "Nope.  The number is %d.\n";
 
     /**
      * @param args the command line arguments
@@ -30,17 +30,27 @@ public class GuessGame {
         int number = MIN_GUESS + (int)(Math.random() * range);
         
         try (Scanner in = new Scanner(System.in)) {
-            // Get guess.
-            System.out.printf(PROMPT, MIN_GUESS, MAX_GUESS);
-            int guess = in.nextInt();
+            int guess;
+
+            // Prompt for first guess.
+            System.out.printf(PROMPT_FIRST, MIN_GUESS, MAX_GUESS);
             
-            // Check guess.
-            if (guess == number) {
-                System.out.printf(CORRECT);
+            while (true) {
+                // Get guess.
+                guess = in.nextInt();
+
+                // Check guess.
+                if (guess == number) {
+                    break;
+                }
+                else {
+                    // Prompt for next guess.
+                    System.out.printf(PROMPT_NEXT);
+                }
             }
-            else {
-                System.out.printf(WRONG, number);
-            }
+            
+            // User guessed correctly.  Congratulate and exit.
+            System.out.printf(CORRECT);
         }
     }
     
