@@ -17,7 +17,7 @@ public class GuessGame {
     private static final int MAX_GUESS = 100;
     private static final String PROMPT_FIRST =
             "I'm thinking of a number between %d-%d.  What is the number?  ";
-    private static final String PROMPT_NEXT = "Nope.  Try again:  ";
+    private static final String PROMPT_NEXT = "Nope.  Too %s.  Try again:  ";
     private static final String CORRECT = "You got it!\n";
 
     /**
@@ -40,12 +40,14 @@ public class GuessGame {
                 guess = in.nextInt();
 
                 // Check guess.
-                if (guess == number) {
-                    break;
+                if (guess < number) {
+                    System.out.printf(PROMPT_NEXT, "low");
                 }
-                else {
-                    // Prompt for next guess.
-                    System.out.printf(PROMPT_NEXT);
+                else if (guess > number) {
+                    System.out.printf(PROMPT_NEXT, "high");                    
+                }
+                else { // guess == number
+                    break;
                 }
             }
             
